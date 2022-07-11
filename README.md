@@ -1,9 +1,4 @@
-# Deep Visual Geo-localization Benchmark
-This is the official repository for the CVPR 2022 (Oral) paper [Deep Visual Geo-localization Benchmark](https://arxiv.org/abs/2204.03444).
-It can be used to reproduce results from the paper, and to compute a wide range of experiments, by changing the components of a Visual Geo-localization pipeline.
-Check out [_our website_](https://deep-vg-bench.herokuapp.com/)!
-
-<img src="https://github.com/gmberton/gmberton.github.io/blob/main/images/vg_system.png" width="90%">
+# Image Retrieval for visual geolocalization 
 
 ## Setup
 Before you begin experimenting with this toolbox, your dataset should be organized in a directory tree as such:
@@ -41,19 +36,7 @@ You can replace the backbone and the aggregation as such
 
 `$ python3 train.py --dataset_name=pitts30k --backbone=resnet50conv4 --aggregation=gem`
 
-you can easily use ResNets cropped at conv4 or conv5.
-#### Add a fully connected layer
-To add a fully connected layer of dimension 2048 to GeM pooling:
 
-`$ python3 train.py --dataset_name=pitts30k --backbone=resnet50conv4 --aggregation=gem --fc_output_dim=2048`
-
-#### Add PCA
-To add PCA to a NetVLAD layer just do:
-
-`$ python3 eval.py --dataset_name=pitts30k --backbone=resnet50conv4 --aggregation=netvlad --pca_dim=2048 --pca_dataset_folder=pitts30k/images/train`
-
-where _pca_dataset_folder_ points to the folder with the images used to compute PCA. In the paper we compute PCA's principal components on the train set as it showed best results. PCA is used only at test time.
-#### Evaluate trained models
 To evaluate the trained model on other datasets (this example is with the St Lucia dataset), simply run
 
 `$ python3 eval.py --backbone=resnet50conv4 --aggregation=gem --resume=logs/default/YYYY-MM-DD_HH-mm-ss/best_model.pth --dataset_name=st_lucia`
@@ -65,29 +48,6 @@ Finally, to reproduce our results, use the appropriate mining method: _full_ for
 
 As simple as this, you can replicate all results from tables 3, 4, 5 of the main paper, as well as tables 2, 3, 4 of the supplementary.
 
-### Resize
-To resize the images simply pass the parameters _resize_ with the target resolution. For example, 80% of resolution to the full _pitts30k_ images, would be 384, 512, because the full images are 480, 640:
-
-`$ python3 train.py --dataset_name=pitts30k --resize=384 512`
-
-### Query  pre/post-processing  and  predictions  refinement
-We gather all such methods under the _test_method_ parameter. The available methods are _hard_resize_, _single_query_, _central_crop_, _five_crops_mean_, _nearest_crop_ and _majority_voting_.
-Although _hard_resize_ is the default, in most datasets it doesn't apply any transformation at all (see the paper for more information), because all images have the same resolution.
-
-`$ python3 eval.py --resume=logs/default/YYYY-MM-DD_HH-mm-ss/best_model.pth --dataset_name=tokyo247 --test_method=nearest_crop`
-
-### Data augmentation
-You can reproduce all data augmentation techniques from the paper with simple commands, for example:
-
-`$ python3 train.py --dataset_name=pitts30k --horizontal_flipping --saturation 2 --brightness 1`
-
-### Off-the-shelf models trained on Landmark Recognition datasets
-The code allows to automatically download and use models trained on Landmark Recognition datasets from popular repositories: [radenovic](https://github.com/filipradenovic/cnnimageretrieval-pytorch) and [naver](https://github.com/naver/deep-image-retrieval).
-These repos offer ResNets-50/101 with GeM and FC 2048 trained on such datasets, and can be used as such:
-
-`$ python eval.py --off_the_shelf=radenovic_gldv1 --l2=after_pool --backbone=r101l4 --aggregation=gem --fc_output_dim=2048`
-
-`$ python eval.py --dataset_name=pitts30k --off_the_shelf=naver --l2=none --backbone=r101l4 --aggregation=gem --fc_output_dim=2048`
 
 ### Using pretrained networks on other datasets
 Check out our [pretrain_vg](https://github.com/rm-wu/pretrain_vg) repo which we use to train such models.
