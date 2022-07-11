@@ -34,12 +34,12 @@ The experiment creates a folder named `./logs/default/YYYY-MM-DD_HH-mm-ss`, wher
 ### Architectures and mining
 You can replace the backbone and the aggregation as such
 
-`$ python3 train.py --dataset_name=pitts30k --backbone=resnet50conv4 --aggregation=gem`
+`$ python3 train.py --dataset_name=pitts30k --backbone=resnet18conv4 --aggregation=gem`
 
 
 To evaluate the trained model on other datasets (this example is with the St Lucia dataset), simply run
 
-`$ python3 eval.py --backbone=resnet50conv4 --aggregation=gem --resume=logs/default/YYYY-MM-DD_HH-mm-ss/best_model.pth --dataset_name=st_lucia`
+`$ python3 eval.py --backbone=resnet18conv4 --aggregation=gem --resume=logs/default/YYYY-MM-DD_HH-mm-ss/best_model.pth --dataset_name=pitts30k`
 
 #### Reproduce the results
 Finally, to reproduce our results, use the appropriate mining method: _full_ for _pitts30k_ and _partial_ for _msls_ as such:
@@ -306,27 +306,14 @@ We are currently exploring hosting options, so this is a partial list of models.
 </details>
 
 
-If you find our work useful in your research please consider citing our paper:
-```
-@inProceedings{Berton_CVPR_2022_benchmark,
-    author    = {Berton, Gabriele and Mereu, Riccardo and Trivigno, Gabriele and Masone, Carlo and
-                 Csurka, Gabriela and Sattler, Torsten and Caputo, Barbara},
-    title     = {Deep Visual Geo-localization Benchmark},
-    booktitle = {CVPR},
-    month     = {June},
-    year      = {2022},
-}
-```
-
-
 ## Acknowledgements
 Parts of this repo are inspired by the following great repositories:
+- [Deep visual geo localization benchmark](https://github.com/gmberton/deep-visual-geo-localization-benchmark)
 - [NetVLAD's original code](https://github.com/Relja/netvlad) (in MATLAB)
 - [NetVLAD layer in PyTorch](https://github.com/lyakaap/NetVLAD-pytorch)
 - [NetVLAD training in PyTorch](https://github.com/Nanne/pytorch-NetVlad/)
 - [GeM](https://github.com/filipradenovic/cnnimageretrieval-pytorch)
 - [Deep Image Retrieval](https://github.com/naver/deep-image-retrieval)
-- [Mapillary](https://github.com/mapillary/mapillary_sls)
-- [Compact Convolutional Transformers](https://github.com/SHI-Labs/Compact-Transformers)
 
-Check out also our other repo [_CosPlace_](https://github.com/gmberton/CosPlace), from the CVPR 2022 paper "Rethinking Visual Geo-localization for Large-Scale Applications", which provides a new SOTA in visual geo-localization / visual place recognition.
+
+
