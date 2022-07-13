@@ -77,7 +77,7 @@ to combine optimizers with schedulers, starting for example from learning rate 0
 ### Multiscale Testing 
 
 to test the model using different scale of images, use the following code:
-TODO
+`$ python3 eval.py --resume=logs/default/YYYY-MM-DD_HH-mm-ss/best_model.pth --dataset_name=pitts30k --datasets_folder="location of your dataset" --num_workers=num_workers --mining=mining --multi_scale --select_resolutions 0.526 0.588 1 1.7 1.9 --multi_scale_method=method`
 
 ### Smart Data Augmentation 
 
